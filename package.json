@@ -4,7 +4,7 @@
   "description": "A template for creating custom Koalati tools.",
   "main": "tool.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js --url=\"http://koalati.com/\""
   },
   "repository": {
     "type": "git",
@@ -14,13 +14,18 @@
     "koalati"
   ],
   "author": {
-      "name" : "Koalati",
-      "email" : "info@koalati.com",
-      "url": "https://koalati.com"
+    "name": "Koalati",
+    "email": "info@koalati.com",
+    "url": "https://koalati.com"
   },
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/koalatiapp/tool-template/issues"
   },
-  "homepage": "https://github.com/koalatiapp/tool-template#readme"
+  "homepage": "https://github.com/koalatiapp/tool-template#readme",
+  "devDependencies": {
+    "cli-color": "^2.0.0",
+    "minimist": "^1.2.5",
+    "puppeteer": "^5.2.1"
+  }
 }
