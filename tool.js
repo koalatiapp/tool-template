@@ -17,6 +17,7 @@ class Tool {
 
     get results() {
         // returns an array of formatted Result objects
+        return [];
     };
 
     async cleanup() {
