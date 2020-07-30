@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer');
 const args = require('minimist')(process.argv.slice(2))
 const clc = require('cli-color');
 const maxPageLoadAttempts = 3;
+let encodedResults = null;
 
 if ('url' in args) {
     (async () => {
@@ -23,12 +24,13 @@ if ('url' in args) {
             }
         }
 
-        // Run tool
-        try {
-            const toolInstance = new Tool(page);
-            await toolInstance.run();
 
-            validateResults(toolInstance.results);
+        try {
+            const toolInstance = new Tool(page, puppeteer.devices);
+            await toolInstance.run();
+            encodedResults = JSON.stringify(toolInstance.results, null, 2);
+
+            validateResults(toolInstance.results)
 
             await toolInstance.cleanup();
         } catch (error) {
@@ -39,6 +41,8 @@ if ('url' in args) {
         }
 
         console.log(clc.green('Tool ran successfully without any errors.'));
+        console.log(clc.green('Here are the JSON encoded results it returned:'));
+        console.log(encodedResults);
         await browser.close();
     })();
 } else {
@@ -75,5 +79,25 @@ function validateSingleResult(result)
         if ('undefined' == typeof result[property] || result[property] === null) {
             throw new Error(`Every result element should contain the ${property} property, but the following result does not include it: \n${JSON.stringify(result)}`);
         }
+    }
+
+    if (typeof result.uniqueName != 'string' || result.uniqueName.length < 5) {
+        throw new Error(`The uniqueName of a result element should be a string of at least 5 characters, but the following ${typeof result.uniqueName} was found: ${JSON.stringify(result.uniqueName)}`);
+    }
+
+    if (typeof result.title != 'string' || result.title.length < 5) {
+        throw new Error(`The title of a result element should be a string of at least 5 characters, but the following ${typeof result.title} was found: ${JSON.stringify(result.title)}`);
+    }
+
+    if (typeof result.description != 'string' || result.description.length < 20) {
+        throw new Error(`The description of a result element should be a string of at least 20 characters, but the following ${typeof result.description} was found: ${JSON.stringify(result.description)}`);
+    }
+
+    if (typeof result.weight != 'number' || result.weight > 1) {
+        throw new Error(`The weight of a result element should be a float value between 0.0 and 1.0, but the following ${typeof result.weight} was found: ${JSON.stringify(result.weight)}`);
+    }
+
+    if (typeof result.score != 'number' || result.score > 1) {
+        throw new Error(`The score of a result element should be a float value between 0.0 and 1.0, but the following ${typeof result.score} was found: ${JSON.stringify(result.score)}`);
     }
 }
