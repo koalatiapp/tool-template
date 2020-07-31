@@ -1,4 +1,5 @@
 const Tool = require('./tool.js');
+const ResultsValidator = require('@koalati/results-validator');
 const puppeteer = require('puppeteer');
 const args = require('minimist')(process.argv.slice(2))
 const clc = require('cli-color');
@@ -24,14 +25,22 @@ if ('url' in args) {
             }
         }
 
-
         try {
             const toolInstance = new Tool(page, puppeteer.devices);
             await toolInstance.run();
+
+            const validator = new ResultsValidator();
+            const validationErrors = validator.checkResults(toolInstance.results)
+
+            if (validationErrors.length) {
+                for (const error of validationErrors) {
+                    console.log(clc.red('Results validation error: ' + error));
+                }
+                await browser.close();
+                process.exit(1);
+            }
+
             encodedResults = JSON.stringify(toolInstance.results, null, 2);
-
-            validateResults(toolInstance.results)
-
             await toolInstance.cleanup();
         } catch (error) {
             console.log(clc.red('An error occured while running the tool.'));
@@ -48,56 +57,4 @@ if ('url' in args) {
 } else {
     console.log(clc.red(JSON.stringify({ error: 'Missing URL argument.' })));
     process.exit(1);
-}
-
-
-function validateResults(results)
-{
-    if (['array', 'object'].indexOf(typeof results) == -1) {
-        throw new Error(`The tool's results should be an array or an object. ${typeof results} found instead.`);
-    }
-
-    results = Object.values(results);
-
-    if (!results.length) {
-        throw new Error(`The tool did not return any results (array of results is empty).`);
-    }
-
-    for (const singleResult of results) {
-        validateSingleResult(singleResult);
-    }
-}
-
-function validateSingleResult(result)
-{
-    if ('object' != typeof result) {
-        throw new Error(`Every result element should be an object. ${typeof result} found instead.`);
-    }
-
-    const requiredProperties = ['uniqueName', 'title', 'description', 'weight'];
-    for (const property of requiredProperties) {
-        if ('undefined' == typeof result[property] || result[property] === null) {
-            throw new Error(`Every result element should contain the ${property} property, but the following result does not include it: \n${JSON.stringify(result)}`);
-        }
-    }
-
-    if (typeof result.uniqueName != 'string' || result.uniqueName.length < 5) {
-        throw new Error(`The uniqueName of a result element should be a string of at least 5 characters, but the following ${typeof result.uniqueName} was found: ${JSON.stringify(result.uniqueName)}`);
-    }
-
-    if (typeof result.title != 'string' || result.title.length < 5) {
-        throw new Error(`The title of a result element should be a string of at least 5 characters, but the following ${typeof result.title} was found: ${JSON.stringify(result.title)}`);
-    }
-
-    if (typeof result.description != 'string' || result.description.length < 20) {
-        throw new Error(`The description of a result element should be a string of at least 20 characters, but the following ${typeof result.description} was found: ${JSON.stringify(result.description)}`);
-    }
-
-    if (typeof result.weight != 'number' || result.weight > 1) {
-        throw new Error(`The weight of a result element should be a float value between 0.0 and 1.0, but the following ${typeof result.weight} was found: ${JSON.stringify(result.weight)}`);
-    }
-
-    if (typeof result.score != 'number' || result.score > 1) {
-        throw new Error(`The score of a result element should be a float value between 0.0 and 1.0, but the following ${typeof result.score} was found: ${JSON.stringify(result.score)}`);
-    }
 }
