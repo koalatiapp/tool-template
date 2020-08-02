@@ -32,5 +32,8 @@ npm test
 
 Alternatively, you can use the following command and specify which webpage to try your tool on:
 ```bash
-node test.js --url="http://koalati.com/"
+npx @koalati/dev-tool-tester --url="https://koalati.com/"
 ```
+
+
+For more information on automated testing for your tools, check out the [dev-tool-tester repository](https://github.com/koalatiapp/dev-tool-tester).
