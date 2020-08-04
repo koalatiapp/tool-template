@@ -3,12 +3,13 @@
 class Tool {
     /**
      * Creates and initializes an instance of your tool
-     * Puppeteer's Page class documentation: https://pptr.dev/#?product=Puppeteer&version=main&show=api-class-page
      *
-     * @param {Object} page The current Puppeteer page's instance
-     * @param {Object} devices A list of devices to be used with page.emulate(). This is a reference to puppeteer.devices.
+     * @param {Object} data Object containing the data that is made available to the tool.
+     * @param {Object} data.page The current Puppeteer page's instance (https://pptr.dev/#?product=Puppeteer&version=main&show=api-class-page)
+     * @param {Object} data.devices A list of devices to be used with page.emulate(). This is a reference to puppeteer.devices.
+     * @param {Object} data.consoleMessages An object containing the messages from the browser's console
      */
-    constructor(page, devices) {
+    constructor({ page, devices }) {
         // set up properties and connections if needed
         this.page = page;
         this.devices = devices;
