@@ -56,13 +56,13 @@ class Tool {
             },
             // ...
         ];
-    };
+    }
 
     async cleanup() {
         // cleans up the variables and connections
         // this will be called once your tool has been executed and its results have been collected
         // your goal here is to put everything back the way it was before your tool was initialized
-    };
+    }
 }
 
 module.exports = Tool;
