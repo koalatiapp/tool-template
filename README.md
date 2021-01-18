@@ -18,11 +18,8 @@ Once you have started developing your tool, you can easily test it and validate 
 
 To do so, first make sure you have all of the devDependencies by running:
 ```bash
-sudo npm install --unsafe-perm=true --allow-root
+npm install --also=devv
 ```
-
-_It is important to have the extra arguments in there, because the testing script uses Puppeteer, which relies on the headless Chromium browser. Running in root and adding the `--unsafe-perm=true --allow-root` arguments is usually required for the Chromium browser to download and install itself along with Puppeteer._
-
 Once the development dependencies are installed, there are two ways you can test your tool.
 
 You can test it by running the following command, which will run your tool on Koalati's homepage by default:
@@ -34,6 +31,5 @@ Alternatively, you can use the following command and specify which webpage to tr
 ```bash
 npx @koalati/dev-tool-tester --url="https://koalati.com/"
 ```
-
 
 For more information on automated testing for your tools, check out the [dev-tool-tester repository](https://github.com/koalatiapp/dev-tool-tester).
