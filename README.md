@@ -18,7 +18,7 @@ Once you have started developing your tool, you can easily test it and validate 
 
 To do so, first make sure you have all of the devDependencies by running:
 ```bash
-npm install --also=devv
+npm install --also=dev
 ```
 Once the development dependencies are installed, there are two ways you can test your tool.
 
