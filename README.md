@@ -35,7 +35,7 @@ You can run your tool's tests by running the following command:
 npm test
 ```
 
-The tests are found in the `test` directory of this template. It contains three files you'll most likely want to change with:
+The tests are found in the `test` directory of this template. It contains three files you'll most likely want to update:
 - `/test/sample.html`: a simple HTML file on which your tool will be ran for the test's purpose.
 - `/test/expectation.json`: a JSON containing the results that are expected to come out of your tool when it is ran on the `/test/sample.html` page.
 - `/test/index.js`: the actual script that defines and executes the tests.
