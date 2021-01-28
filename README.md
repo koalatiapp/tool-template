@@ -1,9 +1,13 @@
 # Koalati Tool Template
-This repository contains everything you need to create a custom tool for Koalati.com.
+This repository is a template that contains everything you need to create a custom tool for Koalati.com.
 
-To get started, clone this repository and install its dependencies:
+
+## Getting started
+To get started, click the "Use this template" button in GitHub or fork this repository.
+
+Then, clone your repository locally and install its dependencies:
 ```bash
-git clone https://github.com/koalatiapp/tool-template.git
+git clone https://github.com/<your-username>/<your-repository>.git
 npm install
 ```
 
@@ -26,6 +30,7 @@ npx @koalati/dev-tool-tester --url="https://koalati.com/"
 ```
 
 For more information on automated testing for your tools, check out the [dev-tool-tester repository](https://github.com/koalatiapp/dev-tool-tester).
+
 
 ## Testing your tool
 This tool template comes with a basic testing setup, which uses [`mocha`](https://mochajs.org/), [Node's `assert`](https://nodejs.org/api/assert.html) and the [`@koalati/dev-tool-tester`'s `runTool`](https://github.com/koalatiapp/dev-tool-tester) function.
