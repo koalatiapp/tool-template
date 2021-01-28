@@ -1,9 +1,10 @@
 # Koalati Tool Template
 This repository contains everything you need to create a custom tool for Koalati.com.
 
-To get started, clone this repository:
-```
+To get started, clone this repository and install its dependencies:
+```bash
 git clone https://github.com/koalatiapp/tool-template.git
+npm install
 ```
 
 Then, open `tool.js` in your preferred editor or IDE and get started building your own custom tool!
@@ -13,12 +14,6 @@ To see what completed tools might look like, take a look at our tool repositorie
 
 ## Debugging your tool
 Once you have started developing your tool, you can easily run it to see if it works and to validate its results.
-
-To do so, first make sure you have all of the dependencies by running:
-```bash
-npm install
-```
-Once the dependencies are installed, there are two ways you can run your tool.
 
 You can test it by running the following command, which will run your tool on Koalati's homepage by default:
 ```bash
