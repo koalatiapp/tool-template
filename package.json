@@ -1,10 +1,11 @@
 {
   "name": "@koalati/tool-template",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A template for creating custom Koalati tools.",
   "main": "tool.js",
   "scripts": {
-    "test": "npx @koalati/dev-tool-tester --url=\"https://koalati.com/\""
+    "test": "mocha",
+    "debug": "npx @koalati/dev-tool-tester --url=\"https://koalati.com/\""
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,8 @@
   },
   "homepage": "https://github.com/koalatiapp/tool-template#readme",
   "devDependencies": {
-    "@koalati/dev-tool-tester": "^1.0.5"
+    "@koalati/dev-tool-tester": "^2.0.0",
+    "eslint": "^7.18.0",
+    "mocha": "^8.2.1"
   }
 }

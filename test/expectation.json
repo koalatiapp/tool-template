@@ -1,0 +1,9 @@
+[
+	{
+		"uniqueName": "your_test_unique_name",
+		"title": "Your test's user-friendly title",
+		"description": "Your test's user-friendly description.",
+		"weight": 1,
+		"score": 1
+	}
+]
