@@ -1,4 +1,5 @@
 "use strict";
+const ResultBuilder = require('result-builder')
 
 class Tool {
 	/**
@@ -13,12 +14,15 @@ class Tool {
 		// set up properties and connections if needed
 		this.page = page;
 		this.devices = devices;
+		//Build result by result-builder
+        this.builder = new ResultBuilder()
 	}
 
 	/**
      * Runs your tool on the page stored in `this.page`
      */
 	async run() {
+		this.exempleResult()
 		// run the tool on the page/website
 		// use the Puppeteer page object store in this.page to interact with the active page
 
@@ -42,22 +46,29 @@ class Tool {
 		// returns an array of formatted Result objects
 		// this method will always be called after run()
 		// this getter should contain little to no logic or processing: it's only goal is to return the results in the Koalati's desired format
-
-		return [
-			{
-				"uniqueName": "your_test_unique_name", // a test name that is unique within your tool. this will be prefixed with your tool's name to generate a Koalati-wide unique name for this test.
-				"title": "Your test's user-friendly title",
-				"description": "Your test's user-friendly description.", // This can be a static description of what your test looks for, or a dynamic one that describes the results.
-				"weight": 1, // the weight of this test's score as a float. the sum of the weights of all your results should be 1.0
-				"score": 1, // the score obtained as a float: 0.5 is 50%, 1.0 is 100%, etc.
-				// 'snippets': [], // a one-dimensional array of strings and/or ElementHandle that can be represented as code snippets in Koalati's results
-				// 'table': [], // a two-dimensional array of data that will be represented as a table in Koalati's results. The first row should contain the column's headings.
-				// 'recommendations': '', // a string or an array of string that gives recommendations, telling the user what can be done to improve the page
-			},
-			// ...
-		];
+		return this.builder.toArray()
 	}
+	exempleResult(){
+		const result = this.builder.newTest("your_test_unique_name") // a test name that is unique within your tool. this will be prefixed with your tool's name to generate a Koalati-wide unique name for this test.
+		result.setTitle("Your test's user-friendly title")
+			.setDescription("Your test's user-friendly description.")// This can be a static description of what your test looks for, or a dynamic one that describes the results.
+			.addRecommendation("your-recommendation") // a string or an array of string that gives recommendations, telling the user what can be done to improve the page
+			.setWeight(1)// the weight of this test's score as a float. the sum of the weights of all your results should be 1.0
+			.setScore(1)// the score obtained as a float: 0.5 is 50%, 1.0 is 100%, etc.
+			.addSnippets(["my-snippet"]) // a one-dimensional array of strings and/or ElementHandle that can be represented as code snippets in Koalati's results
+			.addTableRows([ 
+				[
+					"Table heading 1",
+					"Table heading 2"
+				],
+				[
+					"Table value 1",
+					"Table value 2"
+				]
+			])// a two-dimensional array of data that will be represented as a table in Koalati's results. The first row should contain the column's headings.
+			
 
+	}
 	async cleanup() {
 		// cleans up the variables and connections
 		// this will be called once your tool has been executed and its results have been collected
