@@ -1,5 +1,6 @@
 "use strict";
-const ResultBuilder = require('result-builder')
+
+const ResultBuilder = require("result-builder");
 
 class Tool {
 	/**
@@ -11,20 +12,22 @@ class Tool {
      * @param {Object} data.consoleMessages An object containing the messages from the browser's console
      */
 	constructor({ page, devices }) {
-		// set up properties and connections if needed
+		// Set up properties and connections if needed
 		this.page = page;
 		this.devices = devices;
-		//Build result by result-builder
-        this.builder = new ResultBuilder()
+
+		// The ResultBuilder is an helpful package that helps you build and format your results.
+		// You can find more information about it here: https://www.npmjs.com/package/result-builder
+		this.builder = new ResultBuilder();
 	}
 
 	/**
      * Runs your tool on the page stored in `this.page`
      */
 	async run() {
-		this.exempleResult()
-		// run the tool on the page/website
-		// use the Puppeteer page object store in this.page to interact with the active page
+		// Run the tool on the page/website.
+		// You can use the Puppeteer page object stored in this.page to interact with the active page.
+		// Alternatively, you can use external APIs and resources to generate results.
 
 		// Ex.: execute a function within the page to get or to analyze data
 		// const pageTitle = await this.page.evaluate(() => {
@@ -40,23 +43,46 @@ class Tool {
 
 		// Ex.: wait for a selector to appear in the page
 		// await this.page.waitForSelector('img', { timeout: 5000 });
+
+		// Feel free to created other methods and files to separate different tests and features.
+		this.processSomething();
 	}
 
 	get results() {
-		// returns an array of formatted Result objects
-		// this method will always be called after run()
-		// this getter should contain little to no logic or processing: it's only goal is to return the results in the Koalati's desired format
-		return this.builder.toArray()
+		// Returns an array of formatted Result objects.
+		// This method will always be called after run().
+		// This getter should contain little to no logic or processing: it's only goal is to return the results in the Koalati's desired format.
+		// For more information about the results format, check out https://docs.koalati.com/docs/tools/formatting-results
+		return this.builder.toArray();
 	}
-	exempleResult(){
-		const result = this.builder.newTest("your_test_unique_name") // a test name that is unique within your tool. this will be prefixed with your tool's name to generate a Koalati-wide unique name for this test.
-		result.setTitle("Your test's user-friendly title")
-			.setDescription("Your test's user-friendly description.")// This can be a static description of what your test looks for, or a dynamic one that describes the results.
-			.addRecommendation("your-recommendation") // a string or an array of string that gives recommendations, telling the user what can be done to improve the page
-			.setWeight(1)// the weight of this test's score as a float. the sum of the weights of all your results should be 1.0
-			.setScore(1)// the score obtained as a float: 0.5 is 50%, 1.0 is 100%, etc.
-			.addSnippets(["my-snippet"]) // a one-dimensional array of strings and/or ElementHandle that can be represented as code snippets in Koalati's results
-			.addTableRows([ 
+
+	processSomething() {
+		// Do some processing...
+		// And then generate your test's results with the ResultBuilder (or manually, if you prefer)
+
+		// Your test's unique name must be unique within your tool. It will be prefixed with your tool's name to generate a Koalati-wide unique name for this test.
+		this.builder.newTest("your_test_unique_name")
+
+			// Give your tool a user-friendly title: that's what the users on Koalati will see
+			.setTitle("Your test's user-friendly title")
+
+			// This can be a static description of what your test looks for, or a dynamic one that describes the results.
+			.setDescription("Your test's user-friendly description.")
+
+			// A string or an array of string that gives recommendations, telling the user what can be done to improve the page
+			.addRecommendation("Add X attribute to the tags on your page to improve X")
+
+			// The weight of this test's score as a float. the sum of the weights of all your results should be 1.0
+			.setWeight(1)
+
+			// The score obtained as a float: 0.5 is 50%, 1.0 is 100%, etc.
+			.setScore(1)
+
+			// A one-dimensional array of strings and/or ElementHandle that can be represented as code snippets in Koalati's results
+			.addSnippets(["<div>The faulty element in the page</div>"])
+
+			// A two-dimensional array of data that will be represented as a table in Koalati's results. The first row should contain the column's headings.
+			.addTableRows([
 				[
 					"Table heading 1",
 					"Table heading 2"
@@ -65,10 +91,9 @@ class Tool {
 					"Table value 1",
 					"Table value 2"
 				]
-			])// a two-dimensional array of data that will be represented as a table in Koalati's results. The first row should contain the column's headings.
-			
-
+			]);
 	}
+
 	async cleanup() {
 		// cleans up the variables and connections
 		// this will be called once your tool has been executed and its results have been collected

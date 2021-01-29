@@ -5,8 +5,8 @@
 		"description": "Your test's user-friendly description.",
 		"weight": 1,
 		"score": 1,
-		"recommendations": ["your-recommendation"],
-		"snippets": ["my-snippet"],
+		"recommendations": ["Add X attribute to the tags on your page to improve X"],
+		"snippets": ["<div>The faulty element in the page</div>"],
 		"table": [
 			[
 				"Table heading 1",
