@@ -4,7 +4,7 @@
   "description": "A template for creating custom Koalati tools.",
   "main": "tool.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --config=test/mocharc.json",
     "debug": "npx @koalati/dev-tool-tester --url=\"https://koalati.com/\""
   },
   "repository": {
