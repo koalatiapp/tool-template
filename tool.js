@@ -1,6 +1,6 @@
 "use strict";
 
-const ResultBuilder = require("result-builder");
+const ResultBuilder = require("@koalati/result-builder");
 
 class Tool {
 	/**
@@ -82,15 +82,13 @@ class Tool {
 			.addSnippets(["<div>The faulty element in the page</div>"])
 
 			// A two-dimensional array of data that will be represented as a table in Koalati's results. The first row should contain the column's headings.
-			.addTableRows([
-				[
-					"Table heading 1",
-					"Table heading 2"
-				],
-				[
-					"Table value 1",
-					"Table value 2"
-				]
+			.addTableRow([
+				"Table heading 1",
+				"Table heading 2"
+			])
+			.addTableRow([
+				"Table value 1",
+				"Table value 2"
 			]);
 	}
 
