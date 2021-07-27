@@ -5,7 +5,9 @@
 		"description": "Your test's user-friendly description.",
 		"weight": 1,
 		"score": 1,
-		"recommendations": ["Add X attribute to the tags on your page to improve X"],
+		"recommendations": [
+			["Add %attribute% attribute to the tags on your page to improve X", { "%attribute%": "title" }]
+		],
 		"snippets": ["<div>The faulty element in the page</div>"],
 		"table": [
 			[
