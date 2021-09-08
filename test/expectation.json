@@ -6,7 +6,7 @@
 		"weight": 1,
 		"score": 1,
 		"recommendations": [
-			["Add %attribute% attribute to the tags on your page to improve X", { "%attribute%": "title" }]
+			["Add %attribute% attribute to the tags on your page to improve X", { "%attribute%": "title" }, "OPTIMIZATION"]
 		],
 		"snippets": ["<div>The faulty element in the page</div>"],
 		"table": [

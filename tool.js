@@ -1,6 +1,6 @@
 "use strict";
 
-const ResultBuilder = require("@koalati/result-builder");
+const { ResultBuilder, priorities } = require("@koalati/result-builder");
 
 class Tool {
 	/**
@@ -70,7 +70,11 @@ class Tool {
 			.setDescription("Your test's user-friendly description.")
 
 			// A string or an array of string that gives recommendations, telling the user what can be done to improve the page
-			.addRecommendation("Add %attribute% attribute to the tags on your page to improve X", { "%attribute%": "title" })
+			.addRecommendation(
+				"Add %attribute% attribute to the tags on your page to improve X",
+				{ "%attribute%": "title" },
+				priorities.OPTIMIZATION // use the appropriate type of priority for your recommendation. if unsure, leave it empty or set it to null.
+			)
 
 			// The weight of this test's score as a float. the sum of the weights of all your results should be 1.0
 			.setWeight(1)
